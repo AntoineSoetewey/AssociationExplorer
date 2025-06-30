@@ -130,7 +130,7 @@ ui <- tagList(
     tags$hr(),
     tags$footer(
       class = "app-footer",
-      "v3.5.2. See the ",
+      "v3.5.3. See the ",
       tags$a(href = "https://github.com/AntoineSoetewey/AssociationExplorer", "code", target = "_blank")
     )
   )
