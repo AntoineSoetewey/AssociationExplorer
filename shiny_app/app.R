@@ -13,7 +13,7 @@ library(janitor)
 library(shinyjs)
 
 # increase maximum size of data upload
-options(shiny.maxRequestSize = 100 * 1024^2)  # 100 Mo
+options(shiny.maxRequestSize = 100 * 1024^2) # 100 Mo
 
 ui <- tagList(
   tags$head(
@@ -42,19 +42,25 @@ ui <- tagList(
         br(),
         br(),
         fileInput("data_file", "Upload your dataset (CSV or Excel)",
-                  accept = c("text/csv",
-                             "text/comma-separated-values",
-                             "text/plain",
-                             ".csv",
-                             ".xlsx",
-                             ".xls")),
+          accept = c(
+            "text/csv",
+            "text/comma-separated-values",
+            "text/plain",
+            ".csv",
+            ".xlsx",
+            ".xls"
+          )
+        ),
         fileInput("desc_file", "(Optional) Upload variable descriptions (CSV or Excel)",
-                  accept = c("text/csv",
-                             "text/comma-separated-values",
-                             "text/plain",
-                             ".csv",
-                             ".xlsx",
-                             ".xls")),
+          accept = c(
+            "text/csv",
+            "text/comma-separated-values",
+            "text/plain",
+            ".csv",
+            ".xlsx",
+            ".xls"
+          )
+        ),
         tags$p(
           style = "font-size:0.85em; color: #666666;",
           "The descriptions file must contain exactly two columns named 'Variable' and 'Description'."
@@ -81,16 +87,22 @@ ui <- tagList(
         sidebarLayout(
           sidebarPanel(
             sliderInput("threshold_num", "Threshold for Quantitative-Quantitative and Quantitative-Categorical Associations (R²)",
-                        min = 0, max = 1, value = 0.5, step = 0.05),
+              min = 0, max = 1, value = 0.5, step = 0.05
+            ),
             sliderInput("threshold_cat", "Threshold for Categorical-Categorical Associations (Cramer's V)",
-                        min = 0, max = 1, value = 0.5, step = 0.05),
-            tags$i(tags$span(style = "color: #666666",
-                             "Only associations stronger than the thresholds will be displayed in the plot.")),
+              min = 0, max = 1, value = 0.5, step = 0.05
+            ),
+            tags$i(tags$span(
+              style = "color: #666666",
+              "Only associations stronger than the thresholds will be displayed in the plot."
+            )),
             br(),
             br(),
             fluidRow(
-              column(12, align = "center",
-                     actionButton("go_to_pairs", "See pairs plots", class = "btn btn-primary"))
+              column(12,
+                align = "center",
+                actionButton("go_to_pairs", "See pairs plots", class = "btn btn-primary")
+              )
             )
           ),
           mainPanel(
@@ -110,19 +122,20 @@ ui <- tagList(
       tabPanel(
         title = tags$strong("❓ Help"),
         value = "help_tab",
-        div(class = "help-container",
-            br(),
-            br(),
-            h3("How to use the Association Explorer app?"),
-            br(),
-            tags$ul(
-              tags$li("Upload your dataset (CSV or Excel) in the 'Data' tab. Optionally, upload a file with variable descriptions. This file must contain 2 columns called 'Variable' and 'Description'."),
-              tags$li("In the 'Variables' tab, select the variables you want to explore. If you upload a file containing variables' descriptions, a summary table below shows the selected variables along with their descriptions."),
-              tags$li("Click 'Visualize all associations' to access the correlation network."),
-              tags$li("Adjust the thresholds to filter associations by strength. Only variables that have strong associations (as defined by the thresholds) will appear in the network and pairs plots."),
-              tags$li("In the network, thicker and shorter edges indicate stronger associations."),
-              tags$li("Click 'See pairs plots' to display bivariate visualizations for retained associations.")
-            )
+        div(
+          class = "help-container",
+          br(),
+          br(),
+          h3("How to use the Association Explorer app?"),
+          br(),
+          tags$ul(
+            tags$li("Upload your dataset (CSV or Excel) in the 'Data' tab. Optionally, upload a file with variable descriptions. This file must contain 2 columns called 'Variable' and 'Description'."),
+            tags$li("In the 'Variables' tab, select the variables you want to explore. If you upload a file containing variables' descriptions, a summary table below shows the selected variables along with their descriptions."),
+            tags$li("Click 'Visualize all associations' to access the correlation network."),
+            tags$li("Adjust the thresholds to filter associations by strength. Only variables that have strong associations (as defined by the thresholds) will appear in the network and pairs plots."),
+            tags$li("In the network, thicker and shorter edges indicate stronger associations."),
+            tags$li("Click 'See pairs plots' to display bivariate visualizations for retained associations.")
+          )
         )
       )
     ),
@@ -139,10 +152,10 @@ ui <- tagList(
 server <- function(input, output, session) {
   data <- reactiveVal(NULL)
   var_descriptions <- reactiveVal(NULL)
-  
+
   observeEvent(input$process_data, {
     req(input$data_file)
-    
+
     # Read the uploaded data
     data_path <- input$data_file$datapath
     if (grepl("\\.csv$", data_path, ignore.case = TRUE)) {
@@ -152,31 +165,33 @@ server <- function(input, output, session) {
     } else {
       stop("Unsupported file format for data file.")
     }
-    
+
     # Remove variables with all equal values (e.g., variance zero)
     original_names <- names(data_df)
     data_df <- data_df[, sapply(data_df, function(x) length(unique(x[!is.na(x)])) > 1), drop = FALSE]
-    
+
     # Store filtered data
     data(data_df)
-    
+
     # Show a warning if variables were removed
     removed_vars <- setdiff(original_names, names(data_df))
     if (length(removed_vars) > 0) {
       showNotification(
-        paste("The following variables were removed because they contain only one unique value:",
-              paste(removed_vars, collapse = ", ")),
+        paste(
+          "The following variables were removed because they contain only one unique value:",
+          paste(removed_vars, collapse = ", ")
+        ),
         type = "warning"
       )
     }
-    
+
     # Initialize descriptions with variable names as default descriptions
     default_descriptions <- data.frame(
       variable = names(data_df),
       description = names(data_df),
       stringsAsFactors = FALSE
     )
-    
+
     # Read the uploaded descriptions if a file is provided
     if (!is.null(input$desc_file)) {
       # 1) read the uploaded file
@@ -186,13 +201,13 @@ server <- function(input, output, session) {
       } else {
         user_desc <- read_excel(desc_path, stringsAsFactors = FALSE)
       }
-      
+
       # Trim whitespace from column names
       colnames(user_desc) <- trimws(colnames(user_desc))
-      
+
       # Validate the description file
       validation_passed <- TRUE
-      
+
       if (length(colnames(user_desc)) != 2) {
         showNotification(
           "The description file must contain exactly two columns named 'Variable' and 'Description'.",
@@ -211,13 +226,13 @@ server <- function(input, output, session) {
         )
         validation_passed <- FALSE
       }
-      
+
       if (validation_passed) {
         # If validation passes, continue with processing
         user_desc <- user_desc |>
           janitor::clean_names() |>
           select(variable, description)
-        
+
         merged_desc <- default_descriptions |>
           left_join(user_desc, by = "variable") |>
           mutate(
@@ -235,11 +250,11 @@ server <- function(input, output, session) {
     } else {
       var_descriptions(default_descriptions)
     }
-    
+
     # Redirect to the Variables tab after processing the data
     updateTabsetPanel(session, "main_tabs", selected = "variables_tab")
   })
-  
+
   output$variable_checkboxes_ui <- renderUI({
     req(data())
     selectizeInput(
@@ -248,101 +263,105 @@ server <- function(input, output, session) {
       choices = names(data()),
       selected = names(data()),
       multiple = TRUE,
-      width = "100%",  # ⬅️ This makes the input take full width of its container
+      width = "100%", # ⬅️ This makes the input take full width of its container
       options = list(
         maxItems = NULL,
-        plugins = list('remove_button'),
-        placeholder = 'Choose variables...',
+        plugins = list("remove_button"),
+        placeholder = "Choose variables...",
         openOnFocus = TRUE
       )
     )
   })
-  
+
   valid_selected_vars <- reactive({
     req(input$selected_vars)
     input$selected_vars
   })
-  
+
   output$go_to_network_ui <- renderUI({
     req(input$selected_vars)
     actionButton("go_to_network", "Visualize all associations", class = "btn btn-primary")
   })
-  
+
   output$selected_vars_table_ui <- renderUI({
     req(input$selected_vars)
     # hide the table unless the user has uploaded a custom descriptions file
     req(input$desc_file)
     reactableOutput("selected_vars_table")
   })
-  
+
   output$selected_vars_table <- renderReactable({
     req(var_descriptions())
     req(valid_selected_vars())
-    
+
     df <- tibble(variable = valid_selected_vars()) |>
       left_join(var_descriptions(), by = "variable")
-    
+
     cols <- list(
       variable = colDef(name = "Variable", minWidth = 150),
       description = colDef(name = "Description", html = TRUE, minWidth = 400)
     )
-    
+
     make_table(df, cols)
   })
-  
+
   observeEvent(input$go_to_network, {
     updateTabsetPanel(session, inputId = "main_tabs", selected = "network_tab")
   })
-  
+
   observeEvent(input$go_to_pairs, {
     updateTabsetPanel(session, inputId = "main_tabs", selected = "pairs_tab")
   })
-  
+
   cor_matrix_reactive <- reactive({
     req(data())
     selected_vars <- valid_selected_vars()
     selected_data <- data()[, selected_vars, drop = FALSE]
     calculate_correlations(selected_data, input$threshold_num, input$threshold_cat)
   })
-  
+
   cor_matrix_vals <- reactive({
     cor_matrix_reactive()
   })
-  
+
   filtered_data_for_pairs <- reactive({
     mat <- cor_matrix_vals()$cor_matrix
     nodes_to_keep <- rowSums(abs(mat) > 0) > 1
     filtered_matrix <- mat[nodes_to_keep, nodes_to_keep]
     data()[, colnames(filtered_matrix), drop = FALSE]
   })
-  
+
   significant_pairs <- reactive({
     mat <- cor_matrix_vals()$cor_matrix
     nodes_to_keep <- rowSums(abs(mat) > 0) > 1
     filtered_matrix <- mat[nodes_to_keep, nodes_to_keep]
     pairs <- which(filtered_matrix != 0 & upper.tri(filtered_matrix), arr.ind = TRUE)
-    if (nrow(pairs) == 0) return(NULL)
+    if (nrow(pairs) == 0) {
+      return(NULL)
+    }
     data.frame(
-      var1 = rownames(filtered_matrix)[pairs[,1]],
-      var2 = colnames(filtered_matrix)[pairs[,2]],
+      var1 = rownames(filtered_matrix)[pairs[, 1]],
+      var2 = colnames(filtered_matrix)[pairs[, 2]],
       stringsAsFactors = FALSE
     )
   })
-  
+
   output$network_vis <- renderVisNetwork({
     cor_result <- cor_matrix_reactive()
     cor_matrix <- cor_result$cor_matrix
     cor_type_matrix <- cor_result$cor_type_matrix
-    
+
     nodes_to_keep <- rowSums(abs(cor_matrix) > 0) > 1
     mat <- cor_matrix[nodes_to_keep, nodes_to_keep]
     type_mat <- cor_type_matrix[nodes_to_keep, nodes_to_keep]
-    
+
     validate(
-      need(ncol(mat) > 0,
-           "No associations above the thresholds. Please adjust the thresholds or select different variables.")
+      need(
+        ncol(mat) > 0,
+        "No associations above the thresholds. Please adjust the thresholds or select different variables."
+      )
     )
-    
+
     # 1) Prepare nodes with descriptions instead of names
     nodes <- data.frame(id = colnames(mat), stringsAsFactors = FALSE) |>
       left_join(var_descriptions(), by = c("id" = "variable")) |>
@@ -352,24 +371,24 @@ server <- function(input, output, session) {
         size = 15 # default size
       ) |>
       select(id, label, title, size)
-    
+
     # 2) Prepare edges with appropriate correlation type
     edgelist <- which(mat != 0 & upper.tri(mat), arr.ind = TRUE)
     edges <- data.frame(
-      from = rownames(mat)[edgelist[,1]],
-      to = colnames(mat)[edgelist[,2]],
+      from = rownames(mat)[edgelist[, 1]],
+      to = colnames(mat)[edgelist[, 2]],
       width = 1 + 4 * (abs(mat[edgelist]) - min(abs(mat[edgelist]))) / (max(abs(mat[edgelist])) - min(abs(mat[edgelist]))),
       color = ifelse(mat[edgelist] > 0, "steelblue", "darkred"),
       title = paste0(type_mat[edgelist], " = ", round(mat[edgelist], 2)),
       stringsAsFactors = FALSE
     )
-    
+
     # Adjust edge lengths based on association strengths
     strengths <- abs(mat[edgelist])
-    min_len <- 100    # min length (strong association)
-    max_len <- 500    # max length (weak association)
+    min_len <- 100 # min length (strong association)
+    max_len <- 500 # max length (weak association)
     edges$length <- (1 - strengths) * (max_len - min_len) + min_len
-    
+
     # 3) Build the plot
     visNetwork(nodes, edges, width = "100%", height = "900px") |>
       visNodes(
@@ -384,7 +403,7 @@ server <- function(input, output, session) {
         enabled = TRUE,
         stabilization = TRUE,
         solver = "forceAtlas2Based"
-      ) |> 
+      ) |>
       visOptions(
         highlightNearest = list(enabled = TRUE, degree = 1, hover = TRUE),
         nodesIdSelection = FALSE,
@@ -397,7 +416,7 @@ server <- function(input, output, session) {
       ) |>
       visLayout(randomSeed = 123)
   })
-  
+
   output$pairs_plot <- renderUI({
     req(input$main_tabs == "pairs_tab")
     pairs <- significant_pairs()
@@ -411,19 +430,19 @@ server <- function(input, output, session) {
     tabs <- lapply(seq_len(nrow(pairs)), function(i) {
       v1 <- pairs$var1[i]
       v2 <- pairs$var2[i]
-      
+
       # Get the descriptions
       desc1 <- var_descriptions()$description[var_descriptions()$variable == v1]
       desc2 <- var_descriptions()$description[var_descriptions()$variable == v2]
-      
+
       plotname <- paste0("plot_", i)
       is_num1 <- is.numeric(df[[v1]])
       is_num2 <- is.numeric(df[[v2]])
-      
+
       # Create a clean subset without NAs for these variables
       plot_data <- df %>%
         filter(!is.na(.data[[v1]]), !is.na(.data[[v2]]))
-      
+
       # Numeric vs numeric case
       if (is_num1 && is_num2) {
         # Calculate correlation only with complete cases
@@ -432,7 +451,7 @@ server <- function(input, output, session) {
         } else {
           NA
         }
-        
+
         output[[plotname]] <- renderPlot({
           if (nrow(plot_data) > 0) {
             ggplot(plot_data, aes(x = .data[[v1]], y = .data[[v2]])) +
@@ -451,7 +470,8 @@ server <- function(input, output, session) {
           } else {
             plot.new()
             text(0.5, 0.5, "No valid data available (all values are NA)",
-                 cex = 1.5, adj = 0.5)
+              cex = 1.5, adj = 0.5
+            )
           }
         })
         nav_panel(paste0(v1, " vs ", v2), plotOutput(plotname, height = "600px"))
@@ -480,7 +500,7 @@ server <- function(input, output, session) {
           desc_num <- desc2
           desc_cat <- desc1
         }
-        
+
         output[[plotname]] <- renderPlot({
           if (nrow(plot_data) > 0) {
             df_sum <- plot_data |>
@@ -492,12 +512,15 @@ server <- function(input, output, session) {
               ) |>
               arrange(mean_val) |>
               mutate({{ cat_var }} := factor(.data[[cat_var]], levels = .data[[cat_var]]))
-            
+
             ggplot(df_sum, aes(x = .data[[cat_var]], y = mean_val)) +
               geom_col(fill = "steelblue", width = 0.6) +
-              geom_text(aes(label = format(round(mean_val, 2),
-                                           big.mark = ",", decimal.mark = ".")),
-                        hjust = 1.1, color = "white", size = 4) +
+              geom_text(
+                aes(label = format(round(mean_val, 2),
+                  big.mark = ",", decimal.mark = "."
+                )),
+                hjust = 1.1, color = "white", size = 4
+              ) +
               labs(
                 x = desc_cat,
                 y = paste0('Mean of "', desc_num, '"')
@@ -508,7 +531,8 @@ server <- function(input, output, session) {
           } else {
             plot.new()
             text(0.5, 0.5, "No valid data available (all values are NA)",
-                 cex = 1.5, adj = 0.5)
+              cex = 1.5, adj = 0.5
+            )
           }
         })
         nav_panel(paste0(v1, " vs. ", v2), plotOutput(plotname, height = "600px"))
@@ -516,7 +540,7 @@ server <- function(input, output, session) {
     })
     tagList(navset_card_tab(id = "bivariate_tabs", !!!tabs))
   })
-  
+
   # Function to calculate correlation matrix based on variable types
   calculate_correlations <- function(data, threshold_num, threshold_cat) {
     vars <- names(data)
@@ -524,19 +548,20 @@ server <- function(input, output, session) {
     cor_matrix <- matrix(0, n, n, dimnames = list(vars, vars))
     cor_type_matrix <- matrix("", n, n, dimnames = list(vars, vars)) # Matrix to store correlation type
     combs <- combn(vars, 2, simplify = FALSE)
-    
+
     for (pair in combs) {
-      v1 <- pair[1]; v2 <- pair[2]
+      v1 <- pair[1]
+      v2 <- pair[2]
       is_num1 <- is.numeric(data[[v1]])
       is_num2 <- is.numeric(data[[v2]])
       cor_val <- 0
       cor_type <- ""
-      
+
       # Get complete cases for these two variables
       complete_cases <- complete.cases(data[[v1]], data[[v2]])
       x <- data[[v1]][complete_cases]
       y <- data[[v2]][complete_cases]
-      
+
       if (is_num1 && is_num2) {
         if (length(x) > 0 && length(y) > 0) {
           r <- cor(x, y, use = "complete.obs")
@@ -546,11 +571,14 @@ server <- function(input, output, session) {
       } else if (!is_num1 && !is_num2) {
         if (length(x) > 0 && length(y) > 0) {
           tbl <- table(x, y)
-          if (nrow(tbl) > 1 && ncol(tbl) > 1) {  # Need at least 2 categories in each
-            chi <- tryCatch({
-              chisq.test(tbl, simulate.p.value = TRUE)
-            }, error = function(e) NULL)
-            
+          if (nrow(tbl) > 1 && ncol(tbl) > 1) { # Need at least 2 categories in each
+            chi <- tryCatch(
+              {
+                chisq.test(tbl, simulate.p.value = TRUE)
+              },
+              error = function(e) NULL
+            )
+
             if (!is.null(chi)) {
               n_obs <- sum(tbl)
               df_min <- min(nrow(tbl) - 1, ncol(tbl) - 1)
@@ -570,14 +598,14 @@ server <- function(input, output, session) {
           num_var <- y
           cat_var <- x
         }
-        
+
         if (length(num_var) > 0 && length(cat_var) > 0) {
           means_by_group <- tapply(num_var, cat_var, mean, na.rm = TRUE)
           overall_mean <- mean(num_var, na.rm = TRUE)
           n_groups <- tapply(num_var, cat_var, length)
           bss <- sum(n_groups * (means_by_group - overall_mean)^2, na.rm = TRUE)
           tss <- sum((num_var - overall_mean)^2, na.rm = TRUE)
-          
+
           if (tss > 0) {
             eta <- sqrt(bss / tss)
             cor_val <- ifelse(eta^2 >= threshold_num, eta, 0)
@@ -585,15 +613,15 @@ server <- function(input, output, session) {
           }
         }
       }
-      
+
       cor_matrix[v1, v2] <- cor_matrix[v2, v1] <- cor_val
       cor_type_matrix[v1, v2] <- cor_type_matrix[v2, v1] <- cor_type
     }
-    
+
     diag(cor_matrix) <- 1
     list(cor_matrix = cor_matrix, cor_type_matrix = cor_type_matrix)
   }
-  
+
   make_table <- function(df, columns_defs) {
     reactable(
       df,
@@ -607,39 +635,39 @@ server <- function(input, output, session) {
       theme = reactableTheme(headerStyle = list(fontWeight = "bold"))
     )
   }
-  
+
   # Fonction to build contigency table
   build_contingency_table <- function(df, v1, v2) {
     desc1 <- var_descriptions()$description[var_descriptions()$variable == v1]
     desc2 <- var_descriptions()$description[var_descriptions()$variable == v2]
-    
+
     # Ensure df has the correct columns
     if (!v1 %in% colnames(df) || !v2 %in% colnames(df)) {
       return(div("Invalid variable names for contingency table", style = "color:red"))
     }
-    
+
     # Create a version of the data with NAs removed for the contingency table
     df_clean <- df[complete.cases(df[, c(v1, v2)]), ]
-    
+
     if (nrow(df_clean) == 0) {
       return(div("No valid data available (all values are NA)", style = "padding: 20px; text-align: center;"))
     }
-    
+
     tbl <- table(df_clean[[v1]], df_clean[[v2]])
     if (length(tbl) == 0) {
       return(div("No valid data available (all values are NA)", style = "padding: 20px; text-align: center;"))
     }
-    
+
     tbl_with_margins <- addmargins(tbl)
-    
+
     df_table <- as.data.frame.matrix(tbl_with_margins)
     df_table <- tibble::rownames_to_column(df_table, var = desc1)
-    
+
     inner_vals <- tbl
     min_val <- min(inner_vals)
     max_val <- max(inner_vals)
     pal <- colorRampPalette(c("#e1f5fe", "#0288d1"))(100)
-    
+
     column_defs <- lapply(seq_along(df_table), function(j) {
       colname <- names(df_table)[j]
       if (colname == desc1) {
@@ -652,17 +680,21 @@ server <- function(input, output, session) {
             is_total <- df_table[[desc1]][index] == "Sum" || colname == "Sum"
             val <- as.numeric(value)
             label <- format(val, big.mark = ",", decimal.mark = ".", scientific = FALSE)
-            if (is_total) return(label)
+            if (is_total) {
+              return(label)
+            }
             idx <- if (max_val > min_val) {
               max(1, min(100, floor(99 * (val - min_val) / (max_val - min_val)) + 1))
-            } else 50
+            } else {
+              50
+            }
             div(style = paste0("background-color:", pal[idx], "; padding:4px;"), label)
           }
         )
       }
     })
     names(column_defs) <- names(df_table)
-    
+
     tagList(
       div(class = "reactable-title", desc2),
       make_table(df_table, column_defs)
