@@ -469,7 +469,7 @@ server <- function(input, output, session) {
               theme_minimal(base_size = 14)
           } else {
             plot.new()
-            text(0.5, 0.5, "No valid data available (all values are NA)",
+            text(0.5, 0.5, "No valid data available",
               cex = 1.5, adj = 0.5
             )
           }
@@ -482,7 +482,7 @@ server <- function(input, output, session) {
           if (nrow(plot_data) > 0) {
             build_contingency_table(plot_data, v1, v2)
           } else {
-            div("No valid data available (all values are NA)", style = "padding: 20px; text-align: center;")
+            div("No valid data available", style = "padding: 20px; text-align: center;")
           }
         })
         nav_panel(paste0(v1, " vs ", v2), uiOutput(plotname))
@@ -507,7 +507,6 @@ server <- function(input, output, session) {
               group_by(.data[[cat_var]]) |>
               summarise(
                 mean_val = mean(.data[[num_var]], na.rm = TRUE),
-                se_val = sd(.data[[num_var]], na.rm = TRUE) / sqrt(n()),
                 .groups = "drop"
               ) |>
               arrange(mean_val) |>
@@ -530,7 +529,7 @@ server <- function(input, output, session) {
               coord_flip()
           } else {
             plot.new()
-            text(0.5, 0.5, "No valid data available (all values are NA)",
+            text(0.5, 0.5, "No valid data available",
               cex = 1.5, adj = 0.5
             )
           }
@@ -561,13 +560,16 @@ server <- function(input, output, session) {
       complete_cases <- complete.cases(data[[v1]], data[[v2]])
       x <- data[[v1]][complete_cases]
       y <- data[[v2]][complete_cases]
-
+      
+      # Numeric vs numeric case
       if (is_num1 && is_num2) {
         if (length(x) > 0 && length(y) > 0) {
           r <- cor(x, y, use = "complete.obs")
           cor_val <- ifelse(r^2 >= threshold_num, r, 0)
           cor_type <- "Pearson's r"
         }
+        
+      # Categorical vs categorical case
       } else if (!is_num1 && !is_num2) {
         if (length(x) > 0 && length(y) > 0) {
           tbl <- table(x, y)
@@ -590,6 +592,8 @@ server <- function(input, output, session) {
             }
           }
         }
+        
+      # Mixed case (numeric vs categorical)
       } else {
         if (is_num1) {
           num_var <- x
@@ -650,12 +654,12 @@ server <- function(input, output, session) {
     df_clean <- df[complete.cases(df[, c(v1, v2)]), ]
 
     if (nrow(df_clean) == 0) {
-      return(div("No valid data available (all values are NA)", style = "padding: 20px; text-align: center;"))
+      return(div("No valid data available", style = "padding: 20px; text-align: center;"))
     }
 
     tbl <- table(df_clean[[v1]], df_clean[[v2]])
     if (length(tbl) == 0) {
-      return(div("No valid data available (all values are NA)", style = "padding: 20px; text-align: center;"))
+      return(div("No valid data available", style = "padding: 20px; text-align: center;"))
     }
 
     tbl_with_margins <- addmargins(tbl)
