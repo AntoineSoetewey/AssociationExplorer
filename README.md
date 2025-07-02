@@ -1,9 +1,5 @@
 # AssociationExplorer: A user-friendly Shiny application for exploring associations and visual patterns
 
-
-See the paper: https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/paper
-
-
 **AssociationExplorer** is a user-friendly, open-source R Shiny application that helps non-technical users explore statistical associations within multivariate datasets. It is especially designed for journalists, educators, and engaged citizens interested in uncovering meaningful patterns in survey or public data without requiring programming or statistical expertise.
 
 ## Features
@@ -32,7 +28,9 @@ You will need the shiny package and an active internet connection. A fully web-b
 
 ## Documentation
 
-Full documentation, including variable formats, data requirements, and example workflows, is available in the [docs/ folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/documentation) of this repository.
+Full documentation, including how to use the app, variable formats, data requirements, and example workflows, is available in the [docs/ folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/documentation) of this repository.
+
+An accompanying paper can be found in the [paper/ folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/paper), which provides a detailed overview of the application, its features, and its intended use cases.
 
 ## Example Dataset
 

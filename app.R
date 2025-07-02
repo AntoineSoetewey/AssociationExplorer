@@ -12,9 +12,6 @@ library(gridExtra)
 library(janitor)
 library(shinyjs)
 
-# increase maximum size of data upload
-options(shiny.maxRequestSize = 100 * 1024^2) # 100 Mo
-
 ui <- tagList(
   tags$head(
     tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")

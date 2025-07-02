@@ -80,22 +80,6 @@ dat <- dat %>%
     vacc19 = c(7, 8, 9)
   ))
 
-# Reverse scales
-dat <- dat |>
-  mutate(
-    aesfdrk = 5 - aesfdrk,
-    health = 6 - health,
-    hlthhmp = 4 - hlthhmp,
-    rlgatnd = 8 - rlgatnd,
-    pray = 8 - pray,
-    etfruit = 8 - etfruit,
-    eatveg = 8 - eatveg,
-    cgtsmok = 7 - cgtsmok,
-    alcfreq = 8 - alcfreq,
-    alcbnge = 6 - alcbnge,
-    ipstrgva = 7 - ipstrgva
-  )
-
 ## Recoding dat$netusoft
 dat$netusoft <- dat$netusoft %>%
   as.character() %>%
@@ -128,7 +112,38 @@ dat$psppsgva <- dat$psppsgva %>%
     "5 - A great deal" = "5"
   )
 
-# xxx to continue from here.
+## Recoding dat$actrolga
+dat$actrolga <- dat$actrolga %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Not at all able" = "1",
+    "2 - A little able" = "2",
+    "3 - Quite able" = "3",
+    "4 - Very able" = "4",
+    "5 - Completely able" = "5"
+  )
+
+## Recoding dat$psppipla
+dat$psppipla <- dat$psppipla %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Not at all" = "1",
+    "2 - Very little" = "2",
+    "3 - Some" = "3",
+    "4 - A lot" = "4",
+    "5 - A great deal" = "5"
+  )
+
+## Recoding dat$cptppola
+dat$cptppola <- dat$cptppola %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Not at all confident" = "1",
+    "2 - A little confident" = "2",
+    "3 - Quite confident" = "3",
+    "4 - Very confident" = "4",
+    "5 - Completely confident" = "5"
+  )
 
 ## Recoding dat$vote
 dat$vote <- dat$vote %>%
@@ -139,6 +154,40 @@ dat$vote <- dat$vote %>%
     "Not eligible to vote" = "3"
   )
 
+## Recoding dat$sclmeet
+dat$sclmeet <- dat$sclmeet %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Never" = "1",
+    "2 - Less than once a month" = "2",
+    "3 - Once a month" = "3",
+    "4 - Several times a month" = "4",
+    "5 - Once a week" = "5",
+    "6 - Several times a week" = "6",
+    "7 - Every day" = "7"
+  )
+
+## Recoding dat$inprdsc
+dat$inprdsc <- dat$inprdsc %>%
+  as.character() %>%
+  fct_recode(
+    "0 - None" = "0",
+    "4-6" = "4",
+    "7-9" = "5",
+    "10 or more" = "6"
+  )
+
+## Recoding dat$sclact
+dat$sclact <- dat$sclact %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Much less than most" = "1",
+    "2 - Less than most" = "2",
+    "3 - About the same" = "3",
+    "4 - More than most" = "4",
+    "5 - Much more than most" = "5"
+  )
+
 ## Recoding dat$crmvct
 dat$crmvct <- dat$crmvct %>%
   as.character() %>%
@@ -147,12 +196,68 @@ dat$crmvct <- dat$crmvct %>%
     "No" = "2"
   )
 
+## Recoding dat$aesfdrk
+dat$aesfdrk <- dat$aesfdrk %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Very safe" = "1",
+    "2 - Safe" = "2",
+    "3 - Unsafe" = "3",
+    "4 - Very unsafe" = "4"
+  )
+
+## Recoding dat$health
+dat$health <- dat$health %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Very good" = "1",
+    "2 - Good" = "2",
+    "3 - Fair" = "3",
+    "4 - Bad" = "4",
+    "5 - Very bad" = "5"
+  )
+
+## Recoding dat$hlthhmp
+dat$hlthhmp <- dat$hlthhmp %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Yes a lot" = "1",
+    "2 - Yes to some extent" = "2",
+    "3 - No" = "3"
+  )
+
 ## Recoding dat$rlgblg
 dat$rlgblg <- dat$rlgblg %>%
   as.character() %>%
   fct_recode(
     "Yes" = "1",
     "No" = "2"
+  )
+
+## Recoding dat$rlgatnd
+dat$rlgatnd <- dat$rlgatnd %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Every day" = "1",
+    "2 - More than once a week" = "2",
+    "3 - Once a week" = "3",
+    "4 - At least once a month" = "4",
+    "5 - Only on special holy days" = "5",
+    "6 - Less often" = "6",
+    "7 - Never" = "7"
+  )
+
+## Recoding dat$pray
+dat$pray <- dat$pray %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Every day" = "1",
+    "2 - More than once a week" = "2",
+    "3 - Once a week" = "3",
+    "4 - At least once a month" = "4",
+    "5 - Only on special holy days" = "5",
+    "6 - Less often" = "6",
+    "7 - Never" = "7"
   )
 
 ## Recoding dat$dscrgrp
@@ -203,6 +308,80 @@ dat$mocntr <- dat$mocntr %>%
     "No" = "2"
   )
 
+## Recoding dat$wrclmch
+dat$wrclmch <- dat$wrclmch %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Not at all worried" = "1",
+    "2 - Not very worried" = "2",
+    "3 - Somewhat worried" = "3",
+    "4 - Very worried" = "4",
+    "5 - Extremely worried" = "5"
+  )
+
+## Recoding dat$etfruit
+dat$etfruit <- dat$etfruit %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Three times or more a day" = "1",
+    "2 - Twice a day" = "2",
+    "3 - Once a day" = "3",
+    "4 - Less than once a day but at least 4 times a week" = "4",
+    "5 - Less than 4 times a week but at least once a week" = "5",
+    "6 - Less than once a week" = "6",
+    "7 - Never" = "7"
+  )
+
+## Recoding dat$eatveg
+dat$eatveg <- dat$eatveg %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Three times or more a day" = "1",
+    "2 - Twice a day" = "2",
+    "3 - Once a day" = "3",
+    "4 - Less than once a day but at least 4 times a week" = "4",
+    "5 - Less than 4 times a week but at least once a week" = "5",
+    "6 - Less than once a week" = "6",
+    "7 - Never" = "7"
+  )
+
+## Recoding dat$cgtsmok
+dat$cgtsmok <- dat$cgtsmok %>%
+  as.character() %>%
+  fct_recode(
+    "1 - I smoke daily, 10 or more cigarettes" = "1",
+    "2 - I smoke daily, 9 or fewer cigarettes" = "2",
+    "3 - I smoke but not every day" = "3",
+    "4 - I don’t smoke now but I used to" = "4",
+    "5 - I have only smoked a few times" = "5",
+    "6 - I have never smoked" = "6"
+  )
+
+## Recoding dat$alcfreq
+dat$alcfreq <- dat$alcfreq %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Every day" = "1",
+    "2 - Several times a week" = "2",
+    "3 - Once a week" = "3",
+    "4 - 2-3 times a month" = "4",
+    "5 - Once a month" = "5",
+    "6 - Less than once a month" = "6",
+    "7 - Never" = "7"
+  )
+
+## Recoding dat$alcbnge
+dat$alcbnge <- dat$alcbnge %>%
+  as.character() %>%
+  fct_recode(
+    NULL = "0",
+    "1 - Daily or almost daily" = "1",
+    "2 - Weekly" = "2",
+    "3 - Monthly" = "3",
+    "4 - Less than monthly" = "4",
+    "5 - Never" = "5"
+  )
+
 ## Recoding dat$medtrun
 dat$medtrun <- dat$medtrun %>%
   as.character() %>%
@@ -229,6 +408,18 @@ dat$rshpsts <- dat$rshpsts %>%
     "Legally divorced/Civil union dissolved" = "6"
   )
 
+## Recoding dat$ipstrgva
+dat$ipstrgva <- dat$ipstrgva %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Very much like me" = "1",
+    "2 - Like me" = "2",
+    "3 - Somewhat like me" = "3",
+    "4 - A little like me" = "4",
+    "5 - Not like me" = "5",
+    "6 - Not like me at all" = "6"
+  )
+
 # Recoding vacc19
 dat$vacc19 <- dat$vacc19 %>%
   as.character() %>%
@@ -237,4 +428,5 @@ dat$vacc19 <- dat$vacc19 %>%
     "No" = "2"
   )
 
+# save cleaned dataset
 write.csv(dat, "data/ESS11_BE_data.csv", row.names = FALSE)
