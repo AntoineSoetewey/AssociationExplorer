@@ -7,7 +7,8 @@ dat_BE <- read.csv("data/ESS11_full_dataset.csv", stringsAsFactors = TRUE) |>
   filter(cntry == "BE")
 
 dat <- dat_BE |>
-  select(nwspol:pplhlp, polintr:vote, happy:rlgblg, rlgdgr:dscrgrp, ctzcntr:brncntr, livecnta, feethngr, facntr, mocntr, ccrdprs, wrclmch, ctrlife:alcwknd, alcbnge:weighta, medtrun,
+  select(nwspol:pplhlp, polintr:vote, happy:rlgblg, rlgdgr:dscrgrp, ctzcntr:brncntr,
+         livecnta, feethngr, facntr, mocntr, ccrdprs, wrclmch, ctrlife:alcwknd, alcbnge:weighta, medtrun,
          stflife, gndr, agea, rshpsts, ipstrgva, vacc19)
 
 # Replace specific values with NA
@@ -34,7 +35,6 @@ dat <- dat %>%
     trstep = c(77, 88, 99),
     trstun = c(77, 88, 99),
     vote = c(7, 8, 9),
-    # prtvtebe = c(14, 15, 66, 77, 88, 99),
     # subjective well-being, social exclusion, etc.
     happy = c(77, 88, 99),
     sclmeet = c(77, 88, 99),
@@ -47,15 +47,12 @@ dat <- dat %>%
     atchctr = c(77, 88, 99),
     atcherp = c(77, 88, 99),
     rlgblg = c(7, 8, 9),
-    # rlgdnm = c(77, 88, 99),
-    # rlgdnme = c(77, 88, 99),
     rlgdgr = c(77, 88, 99),
     rlgatnd = c(77, 88, 99),
     pray = c(77, 88, 99),
     dscrgrp = c(7, 8, 9),
     ctzcntr = c(7, 8, 9),
     brncntr = c(7, 8, 9),
-    # cntbrthd = c(6666, 7777, 8888, 9999),
     livecnta = c(6666, 7777, 8888, 9999),
     feethngr = c(7, 8, 9),
     facntr = c(7, 8, 9),
@@ -86,7 +83,6 @@ dat <- dat %>%
 # Reverse scales
 dat <- dat |>
   mutate(
-    polintr = 5 - polintr,
     aesfdrk = 5 - aesfdrk,
     health = 6 - health,
     hlthhmp = 4 - hlthhmp,
@@ -97,9 +93,42 @@ dat <- dat |>
     cgtsmok = 7 - cgtsmok,
     alcfreq = 8 - alcfreq,
     alcbnge = 6 - alcbnge,
-    
     ipstrgva = 7 - ipstrgva
   )
+
+## Recoding dat$netusoft
+dat$netusoft <- dat$netusoft %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Never" = "1",
+    "2 - Only occasionally" = "2",
+    "3 - A few times a week" = "3",
+    "4 - Most days" = "4",
+    "5 - Every day" = "5"
+  )
+
+## Recoding dat$polintr
+dat$polintr <- dat$polintr %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Very interested" = "1",
+    "2 - Quite interested" = "2",
+    "3 - Hardly interested" = "3",
+    "4 - Not at all interested" = "4"
+  )
+
+## Recoding dat$psppsgva
+dat$psppsgva <- dat$psppsgva %>%
+  as.character() %>%
+  fct_recode(
+    "1 - Not at all" = "1",
+    "2 - Very little" = "2",
+    "3 - Some" = "3",
+    "4 - A lot" = "4",
+    "5 - A great deal" = "5"
+  )
+
+# xxx to continue from here.
 
 ## Recoding dat$vote
 dat$vote <- dat$vote %>%
@@ -109,26 +138,6 @@ dat$vote <- dat$vote %>%
     "No" = "2",
     "Not eligible to vote" = "3"
   )
-
-# # Recoding prtvtebe
-# dat$prtvtebe <- dat$prtvtebe %>%
-#   as.character() %>%
-#   fct_recode(
-#     "Groen!" = "1",
-#     "CD&V" = "2",
-#     "N-VA" = "3",
-#     "Sp.a (Vooruit)" = "4",
-#     "PVDA" = "5",
-#     "Vlaams Belang" = "6",
-#     "Open VLD" = "7",
-#     "cdH (Les Engagés)" = "8",
-#     "Ecolo" = "9",
-#     "MR" = "10",
-#     "PS" = "11",
-#     "PTB" = "12",
-#     "DéFI" = "13",
-#     "Other" = "16"
-#   )
 
 ## Recoding dat$crmvct
 dat$crmvct <- dat$crmvct %>%

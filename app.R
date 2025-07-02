@@ -457,7 +457,9 @@ server <- function(input, output, session) {
             ggplot(plot_data, aes(x = .data[[v1]], y = .data[[v2]])) +
               geom_jitter(
                 alpha = 0.6,
-                color = "steelblue"
+                color = "steelblue",
+                width = 0.5,
+                height = 0.5
               ) +
               geom_smooth(method = "lm", se = FALSE, color = "darkred", linewidth = 1) +
               labs(
