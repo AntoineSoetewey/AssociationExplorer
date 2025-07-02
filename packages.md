@@ -1,0 +1,16 @@
+Below the required R packages:
+
+library(shiny)
+library(bslib)
+library(dplyr)
+library(ggplot2)
+library(scales)
+library(reactable)
+library(tidygraph)
+library(visNetwork)
+library(readxl)
+library(grid)
+library(gridExtra)
+library(janitor)
+library(shinyjs)
+library(tibble)
