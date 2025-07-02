@@ -3,7 +3,7 @@ library(naniar)
 library(forcats)
 
 # Filter for Belgium and select relevant columns
-dat_BE <- read.csv("shiny_app/data/ESS11_full_dataset.csv", stringsAsFactors = TRUE) |>
+dat_BE <- read.csv("data/ESS11_full_dataset.csv", stringsAsFactors = TRUE) |>
   filter(cntry == "BE")
 
 dat <- dat_BE |>
@@ -228,4 +228,4 @@ dat$vacc19 <- dat$vacc19 %>%
     "No" = "2"
   )
 
-write.csv(dat, "shiny_app/data/ESS11_BE_data.csv", row.names = FALSE)
+write.csv(dat, "data/ESS11_BE_data.csv", row.names = FALSE)
