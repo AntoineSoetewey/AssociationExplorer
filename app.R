@@ -11,6 +11,8 @@ library(grid)
 library(gridExtra)
 library(janitor)
 library(shinyjs)
+library(tibble)
+library(shinycssloaders)
 
 ui <- tagList(
   tags$head(
@@ -104,7 +106,7 @@ ui <- tagList(
           ),
           mainPanel(
             class = "panel-white",
-            visNetworkOutput("network_vis", height = "600px", width = "100%")
+            withSpinner(visNetworkOutput("network_vis", height = "600px", width = "100%"), type = 6, color = "#0072B2")
           )
         )
       ),
@@ -113,7 +115,7 @@ ui <- tagList(
         value = "pairs_tab",
         fluidPage(
           class = "panel-white",
-          uiOutput("pairs_plot")
+          withSpinner(uiOutput("pairs_plot"), type = 6, color = "#0072B2")
         )
       ),
       tabPanel(
@@ -140,7 +142,7 @@ ui <- tagList(
     tags$hr(),
     tags$footer(
       class = "app-footer",
-      "v3.5.4. See the ",
+      "v3.5.5. See the ",
       tags$a(href = "https://github.com/AntoineSoetewey/AssociationExplorer", "code.", target = "_blank")
     )
   )
