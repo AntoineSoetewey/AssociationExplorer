@@ -14,3 +14,4 @@ Below a list of the required R packages:
 - janitor
 - shinyjs
 - tibble
+- shinycssloaders
