@@ -19,12 +19,10 @@ You can launch the app directly from R using:
 
 ```r
 library(shiny)
-shiny::runGitHub("AssociationExplorer", "AntoineSoetewey")
+runGitHub("AssociationExplorer", "AntoineSoetewey")
 ```
 
-You will need the `shiny` package and an active internet connection. A fully web-based version will be made publicly available as part of the ODALON project.
-
-You will need the shiny package and an active internet connection. A fully web-based version will be made publicly available as part of the ODALON project.
+You will need the `shiny` package and an active internet connection.
 
 ## Documentation
 
@@ -34,18 +32,16 @@ An accompanying paper can be found in the [paper/ folder](https://github.com/Ant
 
 ## Example Dataset
 
-The repository includes an illustrative example based on the European Social Survey, restricted to Belgian respondents and curated for demonstration purposes. The code used to generate the curated dataset can be found in shiny_app/data.
+The repository includes an illustrative example based on the European Social Survey, restricted to Belgian respondents and curated for demonstration purposes. The code used to generate the curated dataset can be found in the [`data/` folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/data).
+
+If you use the dataset used in the example, please cite the following:
+
+- European Social Survey European Research Infrastructure (ESS ERIC). (2024). ESS11 integrated file, edition 3.0 [Data set]. Sikt - Norwegian Agency for Shared Services in Education and Research. https://doi.org/10.21338/ess11e03_0
 
 ## License
 
 This project is licensed under the MIT License.
 
-## Citation
+## Contact
 
-If you use this software, please cite the following:
-
-Soetewey, A., Heuchenne, C., Claes, A. and Descampe, A. (2025). AssociationExplorer: A user-friendly Shiny application for exploring associations and visual patterns [Software]. https://github.com/AntoineSoetewey/AssociationExplorer
-
-For the dataset used in the example, cite:
-
-European Social Survey European Research Infrastructure (ESS ERIC). (2024). ESS11 integrated file, edition 3.0 [Data set]. Sikt - Norwegian Agency for Shared Services in Education and Research. https://doi.org/10.21338/ess11e03_0
+For questions, suggestions, or contributions, feel free to [open an issue](https://github.com/AntoineSoetewey/AssociationExplorer/issues) on the GitHub repository.

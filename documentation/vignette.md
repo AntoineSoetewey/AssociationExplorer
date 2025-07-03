@@ -1,12 +1,3 @@
----
-title: "Getting Started with AssociationExplorer"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Getting Started with AssociationExplorer}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
 # AssociationExplorer
 
 **AssociationExplorer** is an interactive R Shiny application designed to help non-technical users explore associations within multivariate datasets using visual and statistical tools. This vignette provides a guided walkthrough of its use and core functionality.
@@ -22,7 +13,7 @@ if (!require("shiny")) install.packages("shiny")
 shiny::runGitHub("AssociationExplorer", "AntoineSoetewey")
 ```
 
-Ensure that all required dependencies are installed. The full list is available in the `DESCRIPTION` file of the repository.
+Ensure that all required dependencies are installed. The full list is available in the [`packages.md` file](https://github.com/AntoineSoetewey/AssociationExplorer/blob/main/packages.md) of the repository.
 
 ---
 
@@ -39,71 +30,45 @@ AssociationExplorer is structured into sequential tabs to guide users through a 
    Variables with only one unique value are automatically removed.
 
 2. **Variable Selection (`Variables` tab)**  
-   - Choose which variables to include in the analysis.  
-   - Filter by variable type (quantitative, categorical, etc.).  
-   - See summaries and descriptions (if provided).
+   - Choose which variables to include in the analysis.
+   - If a description file is provided, see the list of included variables together with the descriptions.
 
 3. **Association Filtering**  
    - The app calculates association measures depending on variable types:
      - **Pearson’s r** for numeric pairs.
-     - **Eta squared** for numeric–categorical pairs.
-     - **Cramér’s V** for categorical pairs.
+     - **Eta** for numeric–categorical pairs.
+     - **Cramer’s V** for categorical pairs.
    - Users set a minimum threshold to retain only strong associations.
 
 4. **Correlation Network (`Correlation Network` tab)**  
    - An interactive network plot visualizes filtered associations.  
-   - Edge thickness and length represent association strength.  
-   - For numeric pairs, color encodes direction: red = negative, blue = positive.  
-   - Hover to see variable names or descriptions (if available).
+   - Edge thickness and length represent association strength: 
+     - Thicker (thinner) edges = stronger (weaker) associations.
+     - Shorter (longer) edges = stronger (weaker) associations.  
+   - For numeric pairs, color of the edges indicates direction of the association: red = negative association, blue = positive association.  
+   - Hover over the nodes to see variable names or descriptions (if a description file is provided).
 
 5. **Detailed Bivariate Plots (`Pairs Plots` tab)**  
    - Visual summaries for retained associations:
-     - Scatter plots (with linear regression line, no CI).
-     - Mean plots (ordered bars, no SE bars).
-     - Colored contingency tables.
-   - Designed for clarity and readability by non-experts.
+     - Scatter plots (with linear regression line) for numeric pairs.
+     - Mean plots (ordered bars) for numeric–categorical pairs.
+     - Colored contingency tables for categorical pairs.
 
 ---
 
 ## Example Dataset: European Social Survey (ESS)
 
-An illustrative example is included based on a curated subset of the **European Social Survey (ESS11)** dataset, filtered for Belgian respondents and selected variables relevant to the ODALON project.
+An illustrative example is included based on a curated subset of the **European Social Survey (ESS11)** dataset, filtered for Belgian respondents.
 
 - Raw ESS data and codebook: [https://ess.sikt.no/en/](https://ess.sikt.no/en/)
-- Data curation script and example dataset: [`shiny_app/data/`](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/shiny_app/data)
+- Data curation script for the example dataset: [`data/` folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/data)
 
-**Note**: Weights are not applied in this example to maintain interface responsiveness and pedagogical simplicity. Support for user-specified weights is planned in a future release.
+If you use the dataset used in the example, please cite the following:
 
----
-
-## Planned Extensions
-
-Future enhancements include:
-
-- Support for survey weights.
-- Partial correlation analysis.
-- 3-variable visualizations (e.g., scatter plots with size or color mapped to a third variable).
-- AI-based variable suggestion: users enter a prompt or theme and relevant variables are suggested via a large language model.
-- Exportable reports and automatic summaries.
-- Longitudinal and panel data support.
-
----
-
-## Citation
-
-If you use AssociationExplorer in your work, please cite the associated publication (available soon via SoftwareX) and the ESS dataset:
-
-- European Social Survey European Research Infrastructure (ESS ERIC). (2024). *ESS11 integrated file, edition 3.0* [Data set]. Sikt. https://doi.org/10.21338/ess11e03_0  
-- European Social Survey European Research Infrastructure (ESS ERIC). (2024). *ESS11 Data Documentation*. Sikt. https://doi.org/10.21338/ess11-2023
-
----
-
-## License
-
-This project is released under the MIT License.
+- European Social Survey European Research Infrastructure (ESS ERIC). (2024). ESS11 integrated file, edition 3.0 [Data set]. Sikt - Norwegian Agency for Shared Services in Education and Research. https://doi.org/10.21338/ess11e03_0
 
 ---
 
 ## Contact
 
-For questions, suggestions, or contributions, feel free to open an issue on the [GitHub repository](https://github.com/AntoineSoetewey/AssociationExplorer).
+For questions, suggestions, or contributions, feel free to [open an issue](https://github.com/AntoineSoetewey/AssociationExplorer/issues) on the GitHub repository.
