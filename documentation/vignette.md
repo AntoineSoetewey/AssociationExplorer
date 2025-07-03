@@ -13,7 +13,7 @@ if (!require("shiny")) install.packages("shiny")
 shiny::runGitHub("AssociationExplorer", "AntoineSoetewey")
 ```
 
-Ensure that all required dependencies are installed. The full list is available in the [`packages.md` file](https://github.com/AntoineSoetewey/AssociationExplorer/blob/main/packages.md) of the repository.
+Ensure that all required dependencies are installed. The full list is available in the [packages.md file](https://github.com/AntoineSoetewey/AssociationExplorer/blob/main/packages.md) of the repository.
 
 ---
 
@@ -58,10 +58,10 @@ AssociationExplorer is structured into sequential tabs to guide users through a 
 
 ## Example Dataset: European Social Survey (ESS)
 
-An illustrative example is included based on a curated subset of the **European Social Survey (ESS11)** dataset, filtered for Belgian respondents.
+An illustrative example is included based on a subset of the **European Social Survey (ESS11)** dataset, filtered for Belgian respondents and curated for demonstration purposes.
 
 - Raw ESS data and codebook: [https://ess.sikt.no/en/](https://ess.sikt.no/en/)
-- Data curation script for the example dataset: [`data/` folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/data)
+- Data curation script for the example dataset: [data folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/data)
 
 If you use the dataset used in the example, please cite the following:
 
