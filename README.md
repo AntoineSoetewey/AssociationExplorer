@@ -1,6 +1,6 @@
 # AssociationExplorer: A user-friendly Shiny application for exploring associations and visual patterns
 
-**AssociationExplorer** is a user-friendly, open-source R Shiny application that helps non-technical users explore statistical associations within multivariate datasets. It is especially designed for journalists, educators, and engaged citizens interested in uncovering meaningful patterns in survey or public data without requiring programming or statistical expertise.
+**AssociationExplorer** is a user-friendly, open-source R Shiny application that helps non-technical users explore statistical associations within multivariate datasets. It is especially designed for journalists, educators, and engaged citizens interested in uncovering meaningful patterns in survey or public data without requiring advanced programming or statistical expertise.
 
 ## Features
 
@@ -22,17 +22,17 @@ library(shiny)
 runGitHub("AssociationExplorer", "AntoineSoetewey")
 ```
 
-You will need the `shiny` package and an active internet connection.
+You will need the `shiny` package installed (`install.packages("shiny")`) and an active internet connection.
 
 ## Documentation
 
-Full documentation, including how to use the app, variable formats, data requirements, and example workflows, is available in the [docs/ folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/documentation) of this repository.
+Full documentation, including how to use the app, variable formats, data requirements, and example workflows, is available in the [docs folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/documentation) of this repository.
 
-An accompanying paper can be found in the [paper/ folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/paper), which provides a detailed overview of the application, its features, and its intended use cases.
+An accompanying paper can be found in the [paper folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/paper), which provides a detailed overview of the application, its features, and its intended use cases.
 
 ## Example Dataset
 
-The repository includes an illustrative example based on the European Social Survey, restricted to Belgian respondents and curated for demonstration purposes. The code used to generate the curated dataset can be found in the [`data/` folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/data).
+The repository includes an illustrative example based on the European Social Survey, restricted to Belgian respondents and curated for demonstration purposes. The code used to generate the curated dataset can be found in the [data folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/data).
 
 If you use the dataset used in the example, please cite the following:
 
