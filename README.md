@@ -26,7 +26,7 @@ You will need the `shiny` package installed (`install.packages("shiny")`) and an
 
 ## Documentation
 
-Full documentation, including how to use the app, variable formats, data requirements, and example workflows, is available in the [docs folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/documentation) of this repository.
+Full documentation, including how to use the app, variable formats, data requirements, and example workflows, is available in the [documentation folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/documentation) of this repository.
 
 An accompanying paper can be found in the [paper folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/paper), which provides a detailed overview of the application, its features, and its intended use cases.
 
