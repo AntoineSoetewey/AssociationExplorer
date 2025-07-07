@@ -16,6 +16,7 @@ library(shinycssloaders)
 
 ui <- tagList(
   tags$head(
+    tags$title("AssociationExplorer App"),
     tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
   ),
   fluidPage(
@@ -142,8 +143,8 @@ ui <- tagList(
     tags$hr(),
     tags$footer(
       class = "app-footer",
-      "v3.5.5. See the ",
-      tags$a(href = "https://github.com/AntoineSoetewey/AssociationExplorer", "code.", target = "_blank")
+      "v3.5.5.",
+      tags$a(href = "https://github.com/AntoineSoetewey/AssociationExplorer", "Code", target = "_blank")
     )
   )
 )

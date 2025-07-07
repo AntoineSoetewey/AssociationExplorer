@@ -68,7 +68,7 @@ dat <- dat %>%
     alcfreq = c(77, 88, 99),
     alcwkdy = c(6666, 7777, 8888, 9999),
     alcwknd = c(6666, 7777, 8888, 9999),
-    alcbnge = c(7, 8, 9),
+    alcbnge = c(6, 7, 8, 9),
     height = c(777, 888, 999),
     weighta = c(777, 888, 999),
     medtrun = c(7, 8, 9),
