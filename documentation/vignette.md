@@ -17,6 +17,19 @@ Ensure that all required dependencies are installed. The full list is available 
 
 ---
 
+## Example Dataset: European Social Survey (ESS)
+
+An illustrative example is included based on a subset of the **European Social Survey (ESS11)** dataset, filtered for Belgian respondents and curated for demonstration purposes.
+
+- Raw ESS data and codebook: [https://ess.sikt.no/en/](https://ess.sikt.no/en/)
+- Data curation script for the example dataset: [data folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/data)
+
+If you use the dataset used in the example, please cite the following:
+
+- European Social Survey European Research Infrastructure (ESS ERIC). (2024). ESS11 integrated file, edition 3.0 [Data set]. Sikt - Norwegian Agency for Shared Services in Education and Research. https://doi.org/10.21338/ess11e03_0
+
+---
+
 ## Overview of the Workflow
 
 AssociationExplorer is structured into sequential tabs to guide users through a complete analysis pipeline:
@@ -28,10 +41,14 @@ AssociationExplorer is structured into sequential tabs to guide users through a 
      - `Description`: human-readable label for interpretation.
 
    Variables with only one unique value are automatically removed.
+   
+   ![Data tab](documentation/figures/data_tab.png)
 
 2. **Variable Selection (`Variables` tab)**  
    - Choose which variables to include in the analysis.
    - If a description file is provided, see the list of included variables together with the descriptions.
+   
+   ![Variable tab](documentation/figures/variables_tab.png)
 
 3. **Association Filtering**  
    - The app calculates association measures depending on variable types:
@@ -47,6 +64,8 @@ AssociationExplorer is structured into sequential tabs to guide users through a 
      - Shorter (longer) edges = stronger (weaker) associations.  
    - For numeric pairs, color of the edges indicates direction of the association: red = negative association, blue = positive association.  
    - Hover over the nodes to see variable names or descriptions (if a description file is provided).
+   
+   ![Correlation network plot](documentation/figures/correlation_plot.png)
 
 5. **Detailed Bivariate Plots (`Pairs Plots` tab)**  
    - Visual summaries for retained associations:
@@ -54,21 +73,18 @@ AssociationExplorer is structured into sequential tabs to guide users through a 
      - Mean plots (ordered bars) for numeric–categorical pairs.
      - Colored contingency tables for categorical pairs.
 
----
-
-## Example Dataset: European Social Survey (ESS)
-
-An illustrative example is included based on a subset of the **European Social Survey (ESS11)** dataset, filtered for Belgian respondents and curated for demonstration purposes.
-
-- Raw ESS data and codebook: [https://ess.sikt.no/en/](https://ess.sikt.no/en/)
-- Data curation script for the example dataset: [data folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/data)
-
-If you use the dataset used in the example, please cite the following:
-
-- European Social Survey European Research Infrastructure (ESS ERIC). (2024). ESS11 integrated file, edition 3.0 [Data set]. Sikt - Norwegian Agency for Shared Services in Education and Research. https://doi.org/10.21338/ess11e03_0
+   ![Scatter plot](documentation/figures/scatter_plot.png)
+   ![Mean plot](documentation/figures/mean_plot.png)
+   ![Contingency table](documentation/figures/contingency_table.png)
 
 ---
 
 ## Contact
 
 For questions, suggestions, or contributions, feel free to [open an issue](https://github.com/AntoineSoetewey/AssociationExplorer/issues) on the GitHub repository.
+
+--- 
+
+## Notes
+
+This vignette provides a high-level overview of the AssociationExplorer app. For more details about its functionalities and use cases, an accompanying paper is available in the [paper folder](https://github.com/AntoineSoetewey/AssociationExplorer/tree/main/paper) of the repository.

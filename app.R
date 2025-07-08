@@ -133,7 +133,7 @@ ui <- tagList(
             tags$li("In the 'Variables' tab, select the variables you want to explore. If you upload a file containing variables' descriptions, a summary table below shows the selected variables along with their descriptions."),
             tags$li("Click 'Visualize all associations' to access the correlation network."),
             tags$li("Adjust the thresholds to filter associations by strength. Only variables that have strong associations (as defined by the thresholds) will appear in the network and pairs plots."),
-            tags$li("In the network, thicker and shorter edges indicate stronger associations."),
+            tags$li("In the correlation network plot, thicker and shorter edges indicate stronger associations."),
             tags$li("Click 'See pairs plots' to display bivariate visualizations for retained associations.")
           )
         )
