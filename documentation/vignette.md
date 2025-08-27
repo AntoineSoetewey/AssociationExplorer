@@ -42,13 +42,13 @@ AssociationExplorer is structured into sequential tabs to guide users through a 
 
    Variables with only one unique value are automatically removed.
    
-   ![Data tab](documentation/figures/data_tab.png)
+   ![Data tab](figures/data_tab.png)
 
 2. **Variable Selection (`Variables` tab)**  
    - Choose which variables to include in the analysis.
    - If a description file is provided, see the list of included variables together with the descriptions.
    
-   ![Variable tab](documentation/figures/variables_tab.png)
+   ![Variable tab](figures/variables_tab.png)
 
 3. **Association Filtering**  
    - The app calculates association measures depending on variable types:
@@ -65,7 +65,7 @@ AssociationExplorer is structured into sequential tabs to guide users through a 
    - For numeric pairs, color of the edges indicates direction of the association: red = negative association, blue = positive association.  
    - Hover over the nodes to see variable names or descriptions (if a description file is provided).
    
-   ![Correlation network plot](documentation/figures/correlation_plot.png)
+   ![Correlation network plot](figures/correlation_plot.png)
 
 5. **Detailed Bivariate Plots (`Pairs Plots` tab)**  
    - Visual summaries for retained associations:
@@ -73,9 +73,9 @@ AssociationExplorer is structured into sequential tabs to guide users through a 
      - Mean plots (ordered bars) for numeric–categorical pairs.
      - Colored contingency tables for categorical pairs.
 
-   ![Scatter plot](documentation/figures/scatter_plot.png)
-   ![Mean plot](documentation/figures/mean_plot.png)
-   ![Contingency table](documentation/figures/contingency_table.png)
+   ![Scatter plot](figures/scatter_plot.png)
+   ![Mean plot](figures/mean_plot.png)
+   ![Contingency table](figures/contingency_table.png)
 
 ---
 
