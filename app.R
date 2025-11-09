@@ -419,8 +419,10 @@ server <- function(input, output, session) {
         type = "png",
         name = "correlation_network",
         label = "Download plot",
-        style = "background-color:#4F81BD; color:white; border:none; 
-           font-size:12px; padding:4px 8px; border-radius:4px;"
+        style = "background-color:transparent; color:#555555; 
+           border:1px solid #bbbbbb; font-size:12px; 
+           padding:3px 8px; border-radius:4px; 
+           cursor:pointer;"
         )
   })
 
