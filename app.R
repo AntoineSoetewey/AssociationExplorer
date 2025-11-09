@@ -143,7 +143,7 @@ ui <- tagList(
     tags$hr(),
     tags$footer(
       class = "app-footer",
-      "v3.5.5.",
+      "v3.5.6.",
       tags$a(href = "https://github.com/AntoineSoetewey/AssociationExplorer", "Code", target = "_blank")
     )
   )
@@ -414,7 +414,14 @@ server <- function(input, output, session) {
         dragView = FALSE,
         navigationButtons = FALSE
       ) |>
-      visLayout(randomSeed = 123)
+      visLayout(randomSeed = 123) |> 
+      visExport(
+        type = "png",
+        name = "correlation_network",
+        label = "Download plot",
+        style = "background-color:#4F81BD; color:white; border:none; 
+           font-size:12px; padding:4px 8px; border-radius:4px;"
+        )
   })
 
   output$pairs_plot <- renderUI({
