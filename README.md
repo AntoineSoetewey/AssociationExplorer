@@ -11,6 +11,7 @@
 - Dynamic filtering of associations by user-defined thresholds
 - Interactive correlation network visualization
 - Contextual bivariate plots: scatter plots, mean plots, and contingency tables
+- One-click export of visualizations and tables as PNG images
 - Clean, modern UI with responsive behavior
 
 ## Getting Started
