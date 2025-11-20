@@ -55,7 +55,7 @@ AssociationExplorer is structured into sequential tabs to guide users through a 
      - **Pearson’s r** for numeric pairs.
      - **Eta** for numeric–categorical pairs.
      - **Cramer’s V** for categorical pairs.
-   - Users set a minimum threshold to retain only strong associations.
+   - Users specify a range of values, and only associations whose strength falls within this interval are retained.
 
 4. **Correlation Network (`Correlation Network` tab)**  
    - An interactive network plot visualizes filtered associations.  
