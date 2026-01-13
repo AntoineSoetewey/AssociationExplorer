@@ -35,7 +35,8 @@ If you use the dataset used in the example, please cite the following:
 AssociationExplorer is structured into sequential tabs to guide users through a complete analysis pipeline:
 
 1. **Data Upload (`Data` tab)**  
-   - Upload your dataset in `.csv` or `.xlsx` format.  
+   - Upload your dataset in `.csv` or `.xlsx` format.
+   - For CSV files, values must be comma-separated (`,`) and decimals must use a dot (`.`).
    - Optionally upload a *description file* with two columns:
      - `Variable`: exact name matching dataset variables.
      - `Description`: human-readable label for interpretation.

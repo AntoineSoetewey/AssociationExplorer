@@ -4,7 +4,7 @@
 
 ## Features
 
-- Interactive upload of CSV or Excel datasets
+- Interactive upload of CSV or Excel datasets (CSV files must use comma-separated values and dot decimals)
 - Optional upload of a variable description file
 - Automatic handling of quantitative and qualitative variables
 - Computation of association measures: Pearson's *r*, Eta, and Cramer's V

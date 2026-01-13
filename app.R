@@ -83,6 +83,10 @@ ui <- tagList(
             ".xls"
           )
         ),
+        tags$p(
+          style = "font-size:0.85em; color: #666666;",
+          "For CSV files: values must be comma-separated (,) and decimals must use a dot (.)."
+        ),
         fileInput("desc_file", "(Optional) Upload variable descriptions (CSV or Excel)",
           accept = c(
             "text/csv",
@@ -161,7 +165,7 @@ ui <- tagList(
           h3("How to use the Association Explorer app?"),
           br(),
           tags$ul(
-            tags$li("Upload your dataset (CSV or Excel) in the 'Data' tab. Optionally, upload a file with variable descriptions. This file must contain 2 columns called 'Variable' and 'Description'."),
+            tags$li("Upload your dataset (CSV or Excel) in the 'Data' tab. For CSV files, the separator must be a comma (,) and decimal values must use a dot (.). Excel files (.xlsx) are supported without additional formatting requirements. Optionally, you can upload a variable description file. This file must contain exactly two columns named 'Variable' and 'Description', where 'Variable' matches the column names in your dataset."),
             tags$li("In the 'Variables' tab, select the variables you want to explore. If you upload a file containing variables' descriptions, a summary table below shows the selected variables along with their descriptions."),
             tags$li("Click 'Visualize all associations' to access the correlation network."),
             tags$li("Adjust the thresholds to filter associations by strength. Only variables that have strong associations (as defined by the thresholds) will appear in the network and pairs plots."),
@@ -193,7 +197,7 @@ server <- function(input, output, session) {
     if (grepl("\\.csv$", data_path, ignore.case = TRUE)) {
       data_df <- read.csv(data_path, stringsAsFactors = TRUE)
     } else if (grepl("\\.(xlsx|xls)$", data_path, ignore.case = TRUE)) {
-      data_df <- read_excel(data_path, stringsAsFactors = TRUE)
+      data_df <- read_excel(data_path)
     } else {
       stop("Unsupported file format for data file.")
     }
@@ -231,7 +235,7 @@ server <- function(input, output, session) {
       if (grepl("\\.csv$", desc_path, ignore.case = TRUE)) {
         user_desc <- read.csv(desc_path, stringsAsFactors = FALSE, check.names = FALSE)
       } else {
-        user_desc <- read_excel(desc_path, stringsAsFactors = FALSE)
+        user_desc <- read_excel(desc_path)
       }
 
       # Trim whitespace from column names
